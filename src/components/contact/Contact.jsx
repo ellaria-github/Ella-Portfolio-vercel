@@ -1,9 +1,25 @@
 import React from 'react'
 import './contact.css'
+
 import {MdOutlineEmail} from 'react-icons/md'
 import { RiMessengerLine } from 'react-icons/ri'
 import { BsWhatsapp } from 'react-icons/bs'
+import  { useRef } from 'react';
+import emailjs from '@emailjs/browser'
+
 const Contact = () => {
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs.sendForm('service_7cizby9', 'template_j3dubce', form.current, '2ARi4gFR4OpqjUa_v')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
+  };
   return (
     <section id='contact'>
       <h5>Get In Touch</h5>
@@ -14,13 +30,13 @@ const Contact = () => {
             <MdOutlineEmail className='contact__option-icon'/>
           <h4>Email</h4>
           <h5>Ellaria22@gmail.com</h5>
-          <a href='mailto:ellaria22@gmail.com' target="_blank">Send a Message</a>
+          <a href='mailto:ibelemeemmanuella@gmail.com' target="_blank">Send a Message</a>
           </article>
           <article className='contact__option'>
             < RiMessengerLine className='contact__option-icon'/>
           <h4>Messenger</h4>
           <h5>Emmanuella Ibeleme</h5>
-          <a href='mailto:ellaria22@gmail.com' target="_blank">Send a Message</a>
+          <a href='mailto:ibelemeemmanuella@gmail.com' target="_blank">Send a Message</a>
           </article>
           <article className='contact__option'>
             <BsWhatsapp className='contact__option-icon'/>
@@ -29,10 +45,10 @@ const Contact = () => {
           <a href='https://api.whatsapp.com/send?phone=+2347010589344' target="_blank">Send a Message</a>
           </article>
         </div>
-<form action=''>
+<form ref={form} onSubmit={sendEmail}>
   <input type="text" name='name' placeholder='Your Full Name' required/>
   <input type="email" name='email' placeholder='Your Email' required/>
-  <textarea name='message' rows="7" placeholder='Your message' required></textarea>
+  <textarea name='message' rows='7' placeholder='Your message' required></textarea>
   <button type='submit' className='btn btn-primary'>Send Message</button>
 
 </form>
